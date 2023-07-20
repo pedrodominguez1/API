@@ -1,20 +1,19 @@
-import { CronJob } from "cron"
 import express from "express"
 import cors from "cors"
 import { serve, setup } from "swagger-ui-express"
 import connectToDatabase from "./config/database"
 import { specs, uiOpts } from "./config/swagger"
-
+import router from "./routes"
 const app = express()
 const port = parseInt(process.env.PORT ?? "8080", 10)
 
 connectToDatabase()
 
 app.use(cors())
-// app.use(express.json({ limit: "50mb" }))
-// app.use(express.urlencoded({ limit: "50mb", extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-require("./routes")(app)
+app.use("/api", router)
 app.use("/assets", express.static("assets"))
 app.use("/", serve, setup(specs, uiOpts))
 

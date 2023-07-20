@@ -1,6 +1,8 @@
 import { SwaggerOptions } from "swagger-ui-express"
 import swaggerJsDoc from "swagger-jsdoc"
 
+/* The `swaggerOptions` constant is an object that defines the configuration options for generating the
+Swagger documentation. */
 const swaggerOptions: SwaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -24,9 +26,19 @@ const swaggerOptions: SwaggerOptions = {
             ? "Production server"
             : "Local server"
       }
-    ]
+    ],
+    // Agrega el objeto "components" para configurar la seguridad con JWT
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT"
+        }
+      }
+    }
   },
-  apis: ["./dist/routes/api/*.js", "./dist/models/*.js"]
+  apis: ["./dist/routes/*.js", "./dist/models/schemas/*.js"]
 }
 
 const uiOpts = {
