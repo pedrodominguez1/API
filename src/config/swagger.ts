@@ -19,7 +19,7 @@ const swaggerOptions: SwaggerOptions = {
       {
         url:
           process.env.API_ENV === "production"
-            ? "https://productionServer.com"
+            ? "https://conexa-api-test-4702c395ccac.herokuapp.com/"
             : `http://localhost:${process.env.PORT || "8080"}/`,
         description:
           process.env.API_ENV === "production"
